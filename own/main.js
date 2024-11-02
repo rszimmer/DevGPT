@@ -21,10 +21,9 @@ const imports0914 = require("./data_import/exports_0914.js");
   [imports0914, "0914"],
   // [imports1012, "1012"],
 ].forEach(([importedFile, name]) => {
-  let fileText = ``;
+  let mainObject = {};
   for (importFile in importedFile) {
-    fileText +=
-      `\n${importFile}\n` + filter_html(importedFile[importFile]) + `\n`;
+    mainObject[importFile] = filter_html(importedFile[importFile]);
   }
-  file_writer(name, fileText);
+  file_writer(name, JSON.stringify(mainObject));
 });

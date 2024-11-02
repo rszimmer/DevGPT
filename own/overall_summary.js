@@ -8,13 +8,24 @@ const jsonsInDir = fs
 
 const totalResults = {};
 totalResults["htmlEntries"] = 0;
+totalResults["languages"] = {};
 
 jsonsInDir.forEach((file) => {
   const fileData = fs.readFileSync(path.join("./json_results", file));
   const json = JSON.parse(fileData.toString());
   for (ogType in json) {
-    // console.log(json[ogType].htmlEntries);
     totalResults["htmlEntries"] += json[ogType]?.htmlEntries || 0;
+    for (languageList in json[ogType]["languages"]) {
+      if (
+        typeof totalResults["languages"][languageList.toString()] === "number"
+      ) {
+        totalResults["languages"][languageList.toString()] +=
+          json[ogType]["languages"][languageList.toString()];
+      } else {
+        totalResults["languages"][languageList.toString()] =
+          json[ogType]["languages"][languageList.toString()] || 0;
+      }
+    }
   }
 });
 

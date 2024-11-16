@@ -19,7 +19,8 @@ module.exports = function filter_html(fileToRead) {
     if (Object.keys(helperObj).includes(item.RepoLanguage)) {
       helperObj[item.RepoLanguage] += 1;
     } else {
-      helperObj[item.RepoLanguage] = 1;
+      if (helperObj["undefined"]) helperObj[item.RepoLanguage] += 1;
+      else helperObj[item.RepoLanguage] = 1;
     }
   }
 
